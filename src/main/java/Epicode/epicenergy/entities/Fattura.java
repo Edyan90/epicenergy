@@ -1,5 +1,6 @@
 package Epicode.epicenergy.entities;
 
+
 import Epicode.epicenergy.enums.StatoFattura;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,16 +11,18 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "fatture")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+
 @ToString
 public class Fattura {
 
     @Id
     @GeneratedValue
     @Setter(AccessLevel.NONE)
+
     private UUID id;
 
     private LocalDate data;
@@ -28,6 +31,7 @@ public class Fattura {
 
     @Enumerated(EnumType.STRING)
     private StatoFattura stato;
+
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
