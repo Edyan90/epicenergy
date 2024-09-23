@@ -37,14 +37,10 @@ public class FatturaController {
 
     private Fattura convertToEntity(FatturaDTO fatturaDTO) {
         Fattura fattura = new Fattura();
-        fattura.setId(fatturaDTO.getId());
         fattura.setData(fatturaDTO.getData());
         fattura.setImporto(fatturaDTO.getImporto());
         fattura.setNumeroFattura(fatturaDTO.getNumeroFattura());
         fattura.setStato(fatturaDTO.getStato());
-        // Dovrai gestire l'associazione con Cliente in un servizio separato
-        // Ad esempio: Cliente cliente = clienteService.findById(fatturaDTO.getClienteId());
-        // fattura.setCliente(cliente);
         return fattura;
     }
 
