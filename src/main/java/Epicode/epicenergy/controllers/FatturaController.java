@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/fatture")
+@RequestMapping("/fatture")
 public class FatturaController {
 
     @Autowired
@@ -29,7 +29,6 @@ public class FatturaController {
                 fattura.getImporto(),
                 fattura.getNumeroFattura(),
                 fattura.getStato(),
-                // Il cliente ID può essere null se la relazione non è stata impostata
                 fattura.getCliente() != null ? fattura.getCliente().getId() : null
         );
     }
