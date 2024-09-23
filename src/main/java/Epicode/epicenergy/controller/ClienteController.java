@@ -11,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 @RestController
@@ -58,6 +60,13 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void cancellaCliente(@PathVariable Long clienteId) {
         clienteService.cancella(clienteId);
+    }
+
+
+    @PostMapping("/{clienteId}/logo")
+    @ResponseStatus(HttpStatus.OK)
+    public Cliente caricaLogoAziendale(@PathVariable Long clienteId, @RequestParam("logo") MultipartFile file) throws IOException, IOException {
+        return clienteService.uploadLogoAziendale(clienteId, file);
     }
 }
 
