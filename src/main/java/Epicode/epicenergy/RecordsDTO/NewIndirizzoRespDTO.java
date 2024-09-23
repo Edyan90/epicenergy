@@ -7,7 +7,7 @@ public record NewIndirizzoRespDTO(
         String via,
         String civico,
         String località,
-        String cap,
-        String comune
+        String cap
+
 ) {
 }

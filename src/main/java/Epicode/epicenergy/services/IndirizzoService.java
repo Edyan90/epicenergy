@@ -23,21 +23,21 @@ public class IndirizzoService {
         indirizzo.setCivico(dto.civico());
         indirizzo.setLocalità(dto.località());
         indirizzo.setCap(dto.cap());
-        indirizzo.setComune(dto.comune());
+
 
         indirizzoRepository.save(indirizzo);
-        return new NewIndirizzoRespDTO(indirizzo.getId(), indirizzo.getVia(), indirizzo.getCivico(), indirizzo.getLocalità(), indirizzo.getCap(), indirizzo.getComune());
+        return new NewIndirizzoRespDTO(indirizzo.getId(), indirizzo.getVia(), indirizzo.getCivico(), indirizzo.getLocalità(), indirizzo.getCap());
     }
 
     public List<NewIndirizzoRespDTO> getAllIndirizzi() {
         return indirizzoRepository.findAll().stream()
-                .map(i -> new NewIndirizzoRespDTO(i.getId(), i.getVia(), i.getCivico(), i.getLocalità(), i.getCap(), i.getComune()))
+                .map(i -> new NewIndirizzoRespDTO(i.getId(), i.getVia(), i.getCivico(), i.getLocalità(), i.getCap()))
                 .collect(Collectors.toList());
     }
 
     public NewIndirizzoRespDTO getIndirizzoById(UUID id) {
         Indirizzo indirizzo = indirizzoRepository.findById(id).orElseThrow(() -> new RuntimeException("Indirizzo non trovato"));
-        return new NewIndirizzoRespDTO(indirizzo.getId(), indirizzo.getVia(), indirizzo.getCivico(), indirizzo.getLocalità(), indirizzo.getCap(), indirizzo.getComune());
+        return new NewIndirizzoRespDTO(indirizzo.getId(), indirizzo.getVia(), indirizzo.getCivico(), indirizzo.getLocalità(), indirizzo.getCap());
     }
 
     public NewIndirizzoRespDTO updateIndirizzo(UUID id, NewIndirizzoDTO dto) {
@@ -46,10 +46,10 @@ public class IndirizzoService {
         indirizzo.setCivico(dto.civico());
         indirizzo.setLocalità(dto.località());
         indirizzo.setCap(dto.cap());
-        indirizzo.setComune(dto.comune());
+
 
         indirizzoRepository.save(indirizzo);
-        return new NewIndirizzoRespDTO(indirizzo.getId(), indirizzo.getVia(), indirizzo.getCivico(), indirizzo.getLocalità(), indirizzo.getCap(), indirizzo.getComune());
+        return new NewIndirizzoRespDTO(indirizzo.getId(), indirizzo.getVia(), indirizzo.getCivico(), indirizzo.getLocalità(), indirizzo.getCap());
     }
 
     public void deleteIndirizzo(UUID id) {
