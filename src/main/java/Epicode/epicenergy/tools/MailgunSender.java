@@ -12,15 +12,15 @@ public class MailgunSender {
     private String apikey;
     private String domainKey;
 
-    public MailgunSender(@Value("${mailgun.key}") String apikey, @Value("${mailgun.domain}")String domainKey){
-        this.apikey=apikey;
-        this.domainKey=domainKey;
+    public MailgunSender(@Value("${mailgun.key}") String apikey, @Value("${mailgun.domain}") String domainKey) {
+        this.apikey = apikey;
+        this.domainKey = domainKey;
     }
 
-    public void sendRegistrationEmail(Utente ricevente){
-        HttpResponse<JsonNode> response= Unirest.post("https://api.mailgun.net/v3/" + this.domainKey + "/messages")
+    public void sendRegistrationEmail(Utente ricevente) {
+        HttpResponse<JsonNode> response = Unirest.post("https://api.mailgun.net/v3/" + this.domainKey + "/messages")
                 .basicAuth("api", this.apikey)
-                .queryString("from","edyan7@hotmail.it")
+                .queryString("from", "${email}")
                 .queryString("to", ricevente.getMail())
                 .queryString("subject", "Registrazione completata")
                 .queryString("text", "Ciao, grazie per esserti registrato")
