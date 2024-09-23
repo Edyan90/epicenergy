@@ -29,4 +29,26 @@ public class ImportCSV {
 
         return comuni;
     }
+
+    public List<String[]> importProvincie() {
+        String filePath = new File("src/main/resources/provincie-italiane.csv").getAbsolutePath();
+        boolean isFirstLine = true;
+        List<String[]> provincie = new ArrayList<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+                String[] columns = line.split(";");
+                provincie.add(columns);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return provincie;
+    }
 }
