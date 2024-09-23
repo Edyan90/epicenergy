@@ -4,6 +4,8 @@ package Epicode.epicenergy.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "comune")
 @Getter
@@ -16,7 +18,7 @@ public class Comune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    private Long id;
+    private UUID id;
 
     @Column(name = "codice_provincia", nullable = false)
     private String codiceProvincia;
@@ -30,6 +32,6 @@ public class Comune {
 
     @ManyToOne
     @JoinColumn(name = "provincia_id", referencedColumnName = "id", nullable = false)
-    
+
     private Provincia provincia;
 }

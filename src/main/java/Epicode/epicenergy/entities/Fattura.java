@@ -2,15 +2,11 @@ package Epicode.epicenergy.entities;
 
 import Epicode.epicenergy.enums.StatoFattura;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "fatture")
@@ -23,7 +19,7 @@ public class Fattura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     private LocalDate data;
     private BigDecimal importo;
