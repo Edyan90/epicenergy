@@ -4,6 +4,14 @@ import Epicode.epicenergy.enums.Ruolo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -13,12 +21,12 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties
-public class Utente {
+public class Utente implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Setter(AccessLevel.NONE)
-    private int id;
+    private UUID id;
 
     private String username;
     private String mail;
@@ -27,15 +35,21 @@ public class Utente {
     private String cognome;
     private String avatar;
     @Enumerated(EnumType.STRING)
-    private Ruolo ruolo;
+    private List<Ruolo> ruoli;
 
-    public Utente(String username, String mail, String password, String nome, String cognome, Ruolo ruolo) {
+    public Utente(String username, String mail, String password, String nome, String cognome) {
         this.username = username;
         this.mail = mail;
         this.password = password;
         this.nome = nome;
         this.cognome = cognome;
-        this.ruolo = ruolo;
     }
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return ruoli.stream()
+                .map(ruolo -> new SimpleGrantedAuthority(ruolo.name()))
+                .collect(Collectors.toList());
+    }
 }

@@ -1,9 +1,6 @@
 package Epicode.epicenergy.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -33,7 +30,13 @@ public class Indirizzo {
     private String cap;
 
 
-    private String comune;
+    @ManyToOne
+    @JoinColumn(name = "comune_id")
+    private Comune comune;
+    
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
 
 }
