@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Comune {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Setter(AccessLevel.NONE)
     private UUID id;
 
