@@ -1,4 +1,4 @@
-package Epicode.epicenergy.entites;
+package Epicode.epicenergy.entities;
 
 import Epicode.epicenergy.enums.Ruolo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

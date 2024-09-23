@@ -1,5 +1,6 @@
 package Epicode.epicenergy.tools;
 
+import Epicode.epicenergy.entities.Utente;
 import kong.unirest.core.HttpResponse;
 import kong.unirest.core.JsonNode;
 import kong.unirest.core.Unirest;
@@ -20,7 +21,7 @@ public class MailgunSender {
         HttpResponse<JsonNode> response= Unirest.post("https://api.mailgun.net/v3/" + this.domainKey + "/messages")
                 .basicAuth("api", this.apikey)
                 .queryString("from","edyan7@hotmail.it")
-                .queryString("to", ricevente.getEmail())
+                .queryString("to", ricevente.getMail())
                 .queryString("subject", "Registrazione completata")
                 .queryString("text", "Ciao, grazie per esserti registrato")
                 .asJson();
