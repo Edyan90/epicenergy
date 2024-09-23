@@ -1,16 +1,27 @@
 package Epicode.epicenergy.security;
 
+import Epicode.epicenergy.entities.Utente;
+import Epicode.epicenergy.exceptions.UnauthorizedEx;
+import Epicode.epicenergy.services.UtenteService;
+import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.UUID;
 
 public class JWTCheckFilter extends OncePerRequestFilter {
     @Autowired
     private JWTTools jwtTools;
     @Autowired
-    private UtentiService utentiService;
+    private UtenteService utenteService;
 
 
     @Override
@@ -22,7 +33,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         System.out.println("Token: " + accessToken);
         jwtTools.verifyToken(accessToken);
         String currentIDUtente = jwtTools.extractIDfromToken(accessToken);
-        Utente currentUtente = this.utentiService.findByID(UUID.fromString(currentIDUtente));
+        Utente currentUtente = this.utenteService.findById(UUID.fromString(currentIDUtente));
         Authentication authentication = new UsernamePasswordAuthenticationToken(currentUtente, null, currentUtente.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);

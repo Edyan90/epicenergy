@@ -1,7 +1,8 @@
 package Epicode.epicenergy.services;
 
-import Epicode.epicenergy.entites.Utente;
-import Epicode.epicenergy.exceptions.BadRequestException;
+import Epicode.epicenergy.entities.Utente;
+import Epicode.epicenergy.exceptions.BadRequestEx;
+import Epicode.epicenergy.exceptions.NotFoundEx;
 import Epicode.epicenergy.exceptions.NotFoundException;
 import Epicode.epicenergy.payloads.NewUtenteDTO;
 import Epicode.epicenergy.repositories.UtenteRepository;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.UUID;
 
 @Service
 public class UtenteService {
@@ -29,7 +31,7 @@ public class UtenteService {
         this.utenteRepository.findByMail(body.mail()).ifPresent(
 
                 user -> {
-                    throw new BadRequestException("La mail " + body.username() + " e' gia' in uso!");
+                    throw new BadRequestEx("La mail " + body.username() + " e' gia' in uso!");
                 }
         );
         Utente newUtente = new Utente(body.username(), body.mail(), bcrypt.encode(body.password()), body.nome(), body.cognome(), Collections.singletonList(body.ruolo()));
@@ -49,8 +51,8 @@ public class UtenteService {
         return this.utenteRepository.findAll(pageable);
     }
 
-    public Utente findById(int id) {
-        return this.utenteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    public Utente findById(UUID id) {
+        return this.utenteRepository.findById(id).orElseThrow(() -> new NotFoundEx(id));
     }
 
     public Utente findByMail(String mail) {
