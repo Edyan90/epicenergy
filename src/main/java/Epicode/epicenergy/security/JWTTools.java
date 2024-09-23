@@ -1,8 +1,7 @@
 package Epicode.epicenergy.security;
 
-import Epicode.epicenergy.entites.Utente;
+import Epicode.epicenergy.entities.Utente;
 import Epicode.epicenergy.exceptions.UnauthorizedEx;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
