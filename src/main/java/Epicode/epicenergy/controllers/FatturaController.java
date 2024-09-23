@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/fatture")
+@RequestMapping("/fatture")
 public class FatturaController {
 
     @Autowired
