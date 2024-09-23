@@ -19,6 +19,7 @@ public class Fattura {
 
     @Id
     @GeneratedValue
+    @Setter(AccessLevel.NONE)
     private UUID id;
 
     private LocalDate data;
