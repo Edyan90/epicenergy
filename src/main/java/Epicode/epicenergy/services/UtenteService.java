@@ -1,9 +1,9 @@
 package Epicode.epicenergy.services;
 
 import Epicode.epicenergy.entities.Utente;
+import Epicode.epicenergy.enums.Ruolo;
 import Epicode.epicenergy.exceptions.BadRequestEx;
 import Epicode.epicenergy.exceptions.NotFoundEx;
-import Epicode.epicenergy.exceptions.NotFoundException;
 import Epicode.epicenergy.payloads.NewUtenteDTO;
 import Epicode.epicenergy.repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UtenteService {
@@ -34,7 +36,12 @@ public class UtenteService {
                     throw new BadRequestEx("La mail " + body.username() + " e' gia' in uso!");
                 }
         );
-        Utente newUtente = new Utente(body.username(), body.mail(), bcrypt.encode(body.password()), body.nome(), body.cognome(), Collections.singletonList(body.ruolo()));
+        Utente newUtente = new Utente(body.username(), body.mail(), bcrypt.encode(body.password()), body.nome(), body.cognome());
+        List<Ruolo> ruoli = Arrays.stream(body.ruoli().split(","))
+                .map(String::trim)
+                .map(Ruolo::valueOf)
+                .collect(Collectors.toList());
+        newUtente.setRuoli(ruoli);
         Utente savedUser = this.utenteRepository.save(newUtente);
 
 
@@ -57,10 +64,10 @@ public class UtenteService {
 
     public Utente findByMail(String mail) {
         return utenteRepository.findByMail(mail)
-                .orElseThrow(() -> new NotFoundException("Utente non trovato con mail: " + mail));
+                .orElseThrow(() -> new NotFoundEx("Utente non trovato con mail: " + mail));
     }
 
-    public void findByIdAndDelete(int id) {
+    public void findByIdAndDelete(UUID id) {
         Utente found = this.findById(id);
         this.utenteRepository.delete(found);
     }

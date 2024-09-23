@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Fattura {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private UUID id;
 
     private LocalDate data;
@@ -28,5 +28,8 @@ public class Fattura {
     @Enumerated(EnumType.STRING)
     private StatoFattura stato;
 
-        @MayToO @JoinColum private Cliente lente;}
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+}
     

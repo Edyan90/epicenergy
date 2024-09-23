@@ -1,6 +1,5 @@
 package Epicode.epicenergy.payloads;
 
-import Epicode.epicenergy.enums.Ruolo;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -27,8 +26,7 @@ public record NewUtenteDTO(
         @Size(min = 3, max = 20, message = "Il cognome deve contenere minimo 3 caratteri e massimo 20")
         String cognome,
 
-        @NotNull(message = "Il ruolo non può essere nullo")
-        Ruolo ruolo
-
+        @NotNull(message = "Il ruolo non può essere nullo e deve essere separati da una virgola se ci sono più ruoli")
+        String ruoli
 ) {
 }

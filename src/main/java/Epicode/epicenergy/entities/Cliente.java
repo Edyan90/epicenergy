@@ -67,10 +67,6 @@ public class Cliente {
     @Column(name = "tipo_cliente")
     private String tipoCliente;
 
-
-    private Fattura fattura;
-
-
     @OneToMany(mappedBy = "cliente")
     private List<Indirizzo> indirizzi = new ArrayList<>();
 

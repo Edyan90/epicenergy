@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class Utente implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Setter(AccessLevel.NONE)
     private UUID id;
 
@@ -44,6 +44,7 @@ public class Utente implements UserDetails {
         this.nome = nome;
         this.cognome = cognome;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
