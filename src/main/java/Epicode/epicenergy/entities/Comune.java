@@ -28,5 +28,8 @@ public class Comune {
     private String denominazione;
 
 
+    @ManyToOne
+    @JoinColumn(name = "provincia_id", referencedColumnName = "id", nullable = false)
+    
     private Provincia provincia;
 }
