@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 public record NewUtenteDTO(
 
         @NotNull(message = "Lo username è obbligatorio")
-        @Size(min = 3, max = 10, message = "Username deve contenere minimo 3 caratteri e massimo 10")
+        @Size(min = 3, max = 20, message = "Username deve contenere minimo 3 caratteri e massimo 20")
         String username,
 
         @NotNull(message = "La mail non può essere nulla")
