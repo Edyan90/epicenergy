@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -34,19 +35,20 @@ public class Utente implements UserDetails {
     private String cognome;
     private String avatar;
     @Enumerated(EnumType.STRING)
-    private Ruolo ruolo;
+    private List<Ruolo> ruoli;
 
-    public Utente(String username, String mail, String password, String nome, String cognome, Ruolo ruolo) {
+    public Utente(String username, String mail, String password, String nome, String cognome) {
         this.username = username;
         this.mail = mail;
         this.password = password;
         this.nome = nome;
         this.cognome = cognome;
-        this.ruolo = ruolo;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.ruolo.name()));
+        return ruoli.stream()
+                .map(ruolo -> new SimpleGrantedAuthority(ruolo.name()))
+                .collect(Collectors.toList());
     }
 }

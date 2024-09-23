@@ -4,6 +4,8 @@ package Epicode.epicenergy.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -34,4 +36,6 @@ public class Comune {
     @JoinColumn(name = "provincia_id", referencedColumnName = "id", nullable = false)
 
     private Provincia provincia;
+    @OneToMany(mappedBy = "comune")
+    private List<Indirizzo> indirizzi = new ArrayList<>();
 }

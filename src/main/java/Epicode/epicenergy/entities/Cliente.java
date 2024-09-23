@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -69,10 +71,11 @@ public class Cliente {
     private Fattura fattura;
 
 
-    private Indirizzo indirizzoSedeLegale;
+    @OneToMany(mappedBy = "cliente")
+    private List<Indirizzo> indirizzi = new ArrayList<>();
 
-
-    private Indirizzo indirizzoSedeOperativa;
+    @OneToMany(mappedBy = "cliente")
+    private List<Fattura> fatture = new ArrayList<>();
 
 
 }

@@ -1,11 +1,10 @@
 package Epicode.epicenergy.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -25,5 +24,8 @@ public class Provincia {
     private String provincia;
 
     private String regione;
+
+    @OneToMany(mappedBy = "provincia")
+    private List<Comune> comuni = new ArrayList<>();
 
 }
