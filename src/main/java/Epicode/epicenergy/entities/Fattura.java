@@ -1,36 +1,38 @@
 package Epicode.epicenergy.entities;
 
-import Epicode.epicenergy.enums.StatoFattura;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "fatture")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+
 @ToString
 public class Fattura {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Setter(AccessLevel.NONE)
+    private UUID id;
 
     private LocalDate data;
     private BigDecimal importo;
     private Integer numeroFattura;
 
-    @Enumerated(EnumType.STRING)
-    private StatoFattura stato;
+    // @Enumerated(EnumType.STRING)
+    // private StatoFattura stato;
+
+
 
     /* @ManyToOne
     @JoinColumn(name = "cliente_id")
