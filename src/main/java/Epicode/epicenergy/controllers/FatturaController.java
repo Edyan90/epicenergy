@@ -29,7 +29,6 @@ public class FatturaController {
                 fattura.getImporto(),
                 fattura.getNumeroFattura(),
                 fattura.getStato(),
-                // Il cliente ID può essere null se la relazione non è stata impostata
                 fattura.getCliente() != null ? fattura.getCliente().getId() : null
         );
     }
