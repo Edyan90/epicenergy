@@ -1,5 +1,6 @@
 package Epicode.epicenergy.security;
 
+import Epicode.epicenergy.entites.Utente;
 import Epicode.epicenergy.exceptions.UnauthorizedEx;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
