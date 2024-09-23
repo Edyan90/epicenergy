@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface FatturaRepository extends JpaRepository<Fattura, Long> {
 
     // Filtro per cliente
-    List<Fattura> findByClienteId(Long clienteId);
+    List<Fattura> findByClienteId(UUID clienteId);
 
     // Filtro per stato
     List<Fattura> findByStato(StatoFattura stato);
@@ -30,5 +31,5 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
     List<Fattura> findByImportoBetween(BigDecimal minImporto, BigDecimal maxImporto);
 
     // Filtro combinato per cliente, stato, range di importi e date
-    List<Fattura> findByClienteIdAndStatoAndImportoBetweenAndDataBetween(Long clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate);
+    List<Fattura> findByClienteIdAndStatoAndImportoBetweenAndDataBetween(UUID clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate);
 }

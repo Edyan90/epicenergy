@@ -28,9 +28,9 @@ public class Fattura {
     @Enumerated(EnumType.STRING)
     private StatoFattura stato;
 
-    /* @ManyToOne
+     @ManyToOne
     @JoinColumn(name = "cliente_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Cliente cliente; */
+    private Cliente cliente;
 }

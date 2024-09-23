@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class FatturaService {
@@ -22,7 +23,7 @@ public class FatturaService {
     }
 
 
-    public List<Fattura> getFattureByClienteId(Long clienteId) {
+    public List<Fattura> getFattureByClienteId(UUID clienteId) {
         return fatturaRepository.findByClienteId(clienteId);
     }
 
@@ -47,7 +48,7 @@ public class FatturaService {
     }
 
 
-    public List<Fattura> getFattureFiltrate(Long clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate) {
+    public List<Fattura> getFattureFiltrate(UUID clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate) {
         return fatturaRepository.findByClienteIdAndStatoAndImportoBetweenAndDataBetween(clienteId, stato, minImporto, maxImporto, startDate, endDate);
     }
 }
