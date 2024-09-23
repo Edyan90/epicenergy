@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface FatturaRepository extends JpaRepository<Fattura, Long> {
+public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
 
     // Filtro per cliente
     List<Fattura> findByClienteId(UUID clienteId);

@@ -41,9 +41,6 @@ public class FatturaController {
         fattura.setImporto(fatturaDTO.getImporto());
         fattura.setNumeroFattura(fatturaDTO.getNumeroFattura());
         fattura.setStato(fatturaDTO.getStato());
-        // Dovrai gestire l'associazione con Cliente in un servizio separato
-        // Ad esempio: Cliente cliente = clienteService.findById(fatturaDTO.getClienteId());
-        // fattura.setCliente(cliente);
         return fattura;
     }
 
