@@ -28,7 +28,5 @@ public class Fattura {
     @Enumerated(EnumType.STRING)
     private StatoFattura stato;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-}
+        @MayToO @JoinColum private Cliente lente;}
+    
