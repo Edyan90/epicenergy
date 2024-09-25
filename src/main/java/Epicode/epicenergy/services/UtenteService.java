@@ -1,10 +1,13 @@
 package Epicode.epicenergy.services;
 
-import Epicode.epicenergy.entites.Utente;
-import Epicode.epicenergy.exceptions.BadRequestException;
+import Epicode.epicenergy.entities.Utente;
+import Epicode.epicenergy.enums.Ruolo;
+import Epicode.epicenergy.exceptions.BadRequestEx;
 import Epicode.epicenergy.exceptions.NotFoundException;
 import Epicode.epicenergy.payloads.NewUtenteDTO;
 import Epicode.epicenergy.repositories.UtenteRepository;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,8 +15,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Collections;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UtenteService {

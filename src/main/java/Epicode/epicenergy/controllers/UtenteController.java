@@ -1,6 +1,7 @@
 package Epicode.epicenergy.controllers;
 
-import Epicode.epicenergy.entites.Utente;
+
+import Epicode.epicenergy.entities.Utente;
 import Epicode.epicenergy.services.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

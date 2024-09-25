@@ -1,6 +1,7 @@
 package Epicode.epicenergy.repositories;
 
-import Epicode.epicenergy.entites.Utente;
+
+import Epicode.epicenergy.entities.Utente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
