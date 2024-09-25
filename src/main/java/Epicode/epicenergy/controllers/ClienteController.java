@@ -1,4 +1,4 @@
-package Epicode.epicenergy.controller;
+package Epicode.epicenergy.controllers;
 
 import Epicode.epicenergy.entities.Cliente;
 import Epicode.epicenergy.payloads.ClienteDTO;
