@@ -1,7 +1,7 @@
 package Epicode.epicenergy.repositories;
 
 import Epicode.epicenergy.entities.Fattura;
-import Epicode.epicenergy.enums.StatoFattura;
+import Epicode.epicenergy.enums.StatoFatturaEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,7 +18,7 @@ public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
     List<Fattura> findByClienteId(UUID clienteId);
 
     // Filtro per stato
-    List<Fattura> findByStato(StatoFattura stato);
+    List<Fattura> findByStato(StatoFatturaEnum stato);
 
     // Filtro per data tra due date
     List<Fattura> findByDataBetween(LocalDate startDate, LocalDate endDate);
@@ -31,5 +31,7 @@ public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
     List<Fattura> findByImportoBetween(BigDecimal minImporto, BigDecimal maxImporto);
 
     // Filtro combinato per cliente, stato, range di importi e date
-    List<Fattura> findByClienteIdAndStatoAndImportoBetweenAndDataBetween(UUID clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate);
+    List<Fattura> findByClienteIdAndStatoAndImportoBetweenAndDataBetween(UUID clienteId, StatoFatturaEnum stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate);
+
+
 }

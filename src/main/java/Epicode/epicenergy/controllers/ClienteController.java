@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/clienti")
@@ -45,12 +46,12 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    public Cliente trovaClientePerId(@PathVariable Long clienteId) {
+    public Cliente trovaClientePerId(@PathVariable UUID clienteId) {
         return clienteService.trovaPerId(clienteId);
     }
 
     @PutMapping("/{clienteId}")
-    public Cliente aggiornaCliente(@PathVariable Long clienteId, @Valid @RequestBody ClienteDTO clienteDTO) {
+    public Cliente aggiornaCliente(@PathVariable UUID clienteId, @Valid @RequestBody ClienteDTO clienteDTO) {
         Cliente clienteEsistente = clienteService.trovaPerId(clienteId);
         clienteService.aggiornaClienteDaDTO(clienteEsistente, clienteDTO);
         return clienteService.salva(clienteEsistente);
@@ -58,14 +59,14 @@ public class ClienteController {
 
     @DeleteMapping("/{clienteId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void cancellaCliente(@PathVariable Long clienteId) {
+    public void cancellaCliente(@PathVariable UUID clienteId) {
         clienteService.cancella(clienteId);
     }
 
 
     @PostMapping("/{clienteId}/logo")
     @ResponseStatus(HttpStatus.OK)
-    public Cliente caricaLogoAziendale(@PathVariable Long clienteId, @RequestParam("logo") MultipartFile file) throws IOException, IOException {
+    public Cliente caricaLogoAziendale(@PathVariable UUID clienteId, @RequestParam("logo") MultipartFile file) throws IOException, IOException {
         return clienteService.uploadLogoAziendale(clienteId, file);
     }
 }

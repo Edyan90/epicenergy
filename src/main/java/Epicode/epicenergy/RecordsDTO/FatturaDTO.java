@@ -1,23 +1,25 @@
 package Epicode.epicenergy.RecordsDTO;
 
-import Epicode.epicenergy.enums.StatoFattura;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class FatturaDTO {
 
-    private UUID id;
-    private LocalDate data;
-    private BigDecimal importo;
-    private Integer numeroFattura;
-    private StatoFattura stato;
-    private UUID clienteId;
+public record FatturaDTO(
+
+        @NotNull(message = "La data è obbligatoria")
+        LocalDate data,
+
+        @NotNull(message = "L'importo' è obbligatorio")
+        BigDecimal importo,
+
+        @NotNull(message = "Il numero di fattura è obbligatorio")
+        Integer numeroFattura,
+
+        @NotNull(message = "L'id del cliente è obbligatorio")
+        UUID clienteId
+
+) {
 }

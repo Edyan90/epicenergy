@@ -1,6 +1,7 @@
 package Epicode.epicenergy.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -67,9 +68,11 @@ public class Cliente {
     @Column(name = "tipo_cliente")
     private String tipoCliente;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Indirizzo> indirizzi = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Fattura> fatture = new ArrayList<>();
 

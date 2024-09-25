@@ -2,10 +2,12 @@ package Epicode.epicenergy.controllers;
 
 import Epicode.epicenergy.RecordsDTO.FatturaDTO;
 import Epicode.epicenergy.entities.Fattura;
-import Epicode.epicenergy.enums.StatoFattura;
+import Epicode.epicenergy.enums.StatoFatturaEnum;
+import Epicode.epicenergy.services.ClienteService;
 import Epicode.epicenergy.services.FatturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -21,34 +23,37 @@ public class FatturaController {
     @Autowired
     private FatturaService fatturaService;
 
+    @Autowired
+    private ClienteService clienteService;
+
+    // converte fatturaDTO in Fattura
+    private Fattura convertToEntity(FatturaDTO fatturaDTO) {
+        Fattura fattura = new Fattura();
+        fattura.setData(fatturaDTO.data());
+        fattura.setImporto(fatturaDTO.importo());
+        fattura.setNumeroFattura(fatturaDTO.numeroFattura());
+
+        return fattura;
+    }
 
     private FatturaDTO convertToDTO(Fattura fattura) {
         return new FatturaDTO(
-                fattura.getId(),
                 fattura.getData(),
                 fattura.getImporto(),
                 fattura.getNumeroFattura(),
-                fattura.getStato(),
-                fattura.getCliente() != null ? fattura.getCliente().getId() : null
+                fattura.getCliente().getId()
         );
     }
 
 
-    private Fattura convertToEntity(FatturaDTO fatturaDTO) {
-        Fattura fattura = new Fattura();
-        fattura.setData(fatturaDTO.getData());
-        fattura.setImporto(fatturaDTO.getImporto());
-        fattura.setNumeroFattura(fatturaDTO.getNumeroFattura());
-        fattura.setStato(fatturaDTO.getStato());
-        return fattura;
-    }
-
-
     @PostMapping
-    public ResponseEntity<FatturaDTO> creaFattura(@RequestBody FatturaDTO fatturaDTO) {
-        Fattura nuovaFattura = convertToEntity(fatturaDTO);
-        Fattura salvataFattura = fatturaService.saveFattura(nuovaFattura);
-        return ResponseEntity.ok(convertToDTO(salvataFattura));
+    public Fattura creaFattura(@RequestBody @Validated FatturaDTO fatturaDTO) {
+//        Cliente cliente = this.clienteService.trovaPerId(fatturaDTO.clienteId());
+//        Fattura nuovaFattura = new Fattura(fatturaDTO.data(), fatturaDTO.importo(), fatturaDTO.numeroFattura(), cliente);
+        Fattura salvataFattura = fatturaService.saveFattura(fatturaDTO);
+
+
+        return salvataFattura;
     }
 
 
@@ -61,7 +66,7 @@ public class FatturaController {
 
 
     @GetMapping("/stato/{stato}")
-    public ResponseEntity<List<FatturaDTO>> getFattureByStato(@PathVariable StatoFattura stato) {
+    public ResponseEntity<List<FatturaDTO>> getFattureByStato(@PathVariable StatoFatturaEnum stato) {
         List<Fattura> fatture = fatturaService.getFattureByStato(stato);
         List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
         return ResponseEntity.ok(fattureDTO);
@@ -87,7 +92,7 @@ public class FatturaController {
 
     @GetMapping("/filtrate")
     public ResponseEntity<List<FatturaDTO>> getFattureFiltrate(
-            @RequestParam UUID clienteId, @RequestParam StatoFattura stato,
+            @RequestParam UUID clienteId, @RequestParam StatoFatturaEnum stato,
             @RequestParam BigDecimal minImporto, @RequestParam BigDecimal maxImporto,
             @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         List<Fattura> fatture = fatturaService.getFattureFiltrate(clienteId, stato, minImporto, maxImporto, startDate, endDate);

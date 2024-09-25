@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Service
 public class ClienteService {
@@ -34,13 +35,13 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente trovaPerId(Long clienteId) {
+    public Cliente trovaPerId(UUID clienteId) {
         return clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new NotFoundEx(clienteId));
     }
 
 
-    public void cancella(Long clienteId) {
+    public void cancella(UUID clienteId) {
         Cliente cliente = trovaPerId(clienteId);
         clienteRepository.delete(cliente);
     }
@@ -78,7 +79,7 @@ public class ClienteService {
     }
 
 
-    public Cliente uploadLogoAziendale(Long clienteId, MultipartFile file) throws IOException {
+    public Cliente uploadLogoAziendale(UUID clienteId, MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             throw new BadRequestEx("Immagine obbligatoria.");
         }

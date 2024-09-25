@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
@@ -19,6 +21,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
             "(:dataUltimoContatto IS NULL OR c.dataUltimoContatto = :dataUltimoContatto) AND " +
             "(:parteNome IS NULL OR LOWER(c.ragioneSociale) LIKE LOWER(CONCAT('%', :parteNome, '%')))")
     Page<Cliente> findWithFilters(Double fatturatoMin, Double fatturatoMax, LocalDate dataInserimento, LocalDate dataUltimoContatto, String parteNome, Pageable pageable);
+
+    Optional<Cliente> findById(UUID id);
 }
 
 

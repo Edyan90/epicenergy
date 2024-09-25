@@ -1,6 +1,6 @@
 package Epicode.epicenergy.enums;
 
-public enum StatoFattura {
+public enum StatoFatturaEnum {
     EMESSA,
     PAGATA,
     SCADUTA,
