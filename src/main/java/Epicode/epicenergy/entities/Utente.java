@@ -1,6 +1,5 @@
 package Epicode.epicenergy.entities;
 
-import Epicode.epicenergy.enums.Ruolo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +8,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -34,8 +34,12 @@ public class Utente implements UserDetails {
     private String nome;
     private String cognome;
     private String avatar;
-    @Enumerated(EnumType.STRING)
-    private List<Ruolo> ruoli;
+
+    @ManyToMany
+    @JoinTable(name = "utenti_ruoli",
+            joinColumns = @JoinColumn(name = "utente_id"),
+            inverseJoinColumns = @JoinColumn(name = "ruolo_id"))
+    private Set<Ruolo> ruoli = new HashSet<>();
 
     public Utente(String username, String mail, String password, String nome, String cognome) {
         this.username = username;
@@ -49,7 +53,8 @@ public class Utente implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return ruoli.stream()
-                .map(ruolo -> new SimpleGrantedAuthority(ruolo.name()))
+                .map(ruolo -> new SimpleGrantedAuthority(ruolo.getRuoloE().name()))
                 .collect(Collectors.toList());
     }
+
 }
