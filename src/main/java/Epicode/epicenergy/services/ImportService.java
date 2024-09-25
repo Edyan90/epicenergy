@@ -26,12 +26,23 @@ public class ImportService {
 
     public void importaProvincie(List<String[]> datiProvincie) {
         for (String[] record : datiProvincie) {
+            String sigla = record[0].trim();
+            String nomeProvincia = record[1].trim();
+            String regione = record[2].trim();
+
+            // Controlla se la provincia esiste già
+            if (provinciaRepository.existsBySigla(sigla)) {
+                System.out.println("Provincia già presente: " + sigla);
+                continue;
+            }
+
             Provincia provincia = new Provincia();
-            provincia.setSigla(record[0].trim());    // Colonna 1: Sigla
-            provincia.setProvincia(record[1].trim()); // Colonna 2: Nome Provincia
-            provincia.setRegione(record[2].trim());  // Colonna 3: Regione
+            provincia.setSigla(sigla);
+            provincia.setProvincia(nomeProvincia);
+            provincia.setRegione(regione);
 
             provinciaRepository.save(provincia);
+            System.out.println("Provincia importata: " + nomeProvincia);
         }
     }
 
@@ -42,6 +53,10 @@ public class ImportService {
                 continue;
             }
 
+            if (comuneRepository.existsByDenominazioneAndCodiceProvincia(record[3].trim(), record[0].trim())) {
+                System.out.println("Comune già presente: " + record[3].trim());
+                continue; // Salta se il comune esiste già
+            }
             Comune comune = new Comune();
             comune.setCodiceProvincia(record[0].trim());
 
