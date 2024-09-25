@@ -5,8 +5,6 @@ import Epicode.epicenergy.exceptions.BadRequestException;
 import Epicode.epicenergy.exceptions.NotFoundException;
 import Epicode.epicenergy.payloads.NewUtenteDTO;
 import Epicode.epicenergy.repositories.UtenteRepository;
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,12 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Collections;
-import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class UtenteService {
@@ -38,10 +32,15 @@ public class UtenteService {
         this.utenteRepository.findByMail(body.mail()).ifPresent(
 
                 user -> {
-                    throw new BadRequestException("La mail " + body.username() + " e' gia' in uso!");
+                    throw new BadRequestEx("La mail " + body.username() + " e' gia' in uso!");
                 }
         );
-        Utente newUtente = new Utente(body.username(), body.mail(), bcrypt.encode(body.password()), body.nome(), body.cognome(), Collections.singletonList(body.ruolo()));
+        Utente newUtente = new Utente(body.username(), body.mail(), bcrypt.encode(body.password()), body.nome(), body.cognome());
+        List<Ruolo> ruoli = Arrays.stream(body.ruoli().split(","))
+                .map(String::trim)
+                .map(Ruolo::valueOf)
+                .collect(Collectors.toList());
+        newUtente.setRuoli(ruoli);
         Utente savedUser = this.utenteRepository.save(newUtente);
 
 
