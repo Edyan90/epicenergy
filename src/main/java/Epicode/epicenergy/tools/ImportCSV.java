@@ -1,5 +1,7 @@
 package Epicode.epicenergy.tools;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ImportCSV {
     public List<String[]> importComuni() {
         String filePath = new File("src/main/resources/comuni-italiani.csv").getAbsolutePath();
@@ -31,7 +34,7 @@ public class ImportCSV {
     }
 
     public List<String[]> importProvincie() {
-        String filePath = new File("src/main/resources/provincie-italiane.csv").getAbsolutePath();
+        String filePath = new File("src/main/resources/province-italiane.csv").getAbsolutePath();
         boolean isFirstLine = true;
         List<String[]> provincie = new ArrayList<>();
 
