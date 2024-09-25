@@ -1,5 +1,5 @@
 package Epicode.epicenergy.enums;
 
-public enum Ruolo {
+public enum RuoloEnum {
     ADMIN, USER
 }
