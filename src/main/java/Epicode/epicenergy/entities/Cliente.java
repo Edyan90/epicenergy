@@ -1,6 +1,7 @@
 package Epicode.epicenergy.entities;
 
 
+import Epicode.epicenergy.enums.TipoCliente;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -64,8 +65,9 @@ public class Cliente {
     @Column(name = "logo_aziendale")
     private String logoAziendale;
 
-    @Column(name = "tipo_cliente")
-    private String tipoCliente;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_cliente", nullable = false)
+    private TipoCliente tipoCliente;
 
     @OneToMany(mappedBy = "cliente")
     private List<Indirizzo> indirizzi = new ArrayList<>();
