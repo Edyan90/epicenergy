@@ -1,7 +1,9 @@
 package Epicode.epicenergy.controllers;
 
 import Epicode.epicenergy.RecordsDTO.FatturaDTO;
+import Epicode.epicenergy.RecordsDTO.StatoFatturaDTO;
 import Epicode.epicenergy.entities.Fattura;
+import Epicode.epicenergy.entities.StatoFattura;
 import Epicode.epicenergy.enums.StatoFatturaEnum;
 import Epicode.epicenergy.services.ClienteService;
 import Epicode.epicenergy.services.FatturaService;
@@ -54,6 +56,15 @@ public class FatturaController {
 
 
         return salvataFattura;
+    }
+
+    @PostMapping
+    @RequestMapping("/stato")
+    public StatoFattura creaStatoFattura(@RequestBody @Validated StatoFatturaDTO statoFatturaDTO) {
+
+        StatoFattura statoFatturaSalvato = fatturaService.saveStatoFattura(statoFatturaDTO);
+
+        return statoFatturaSalvato;
     }
 
 

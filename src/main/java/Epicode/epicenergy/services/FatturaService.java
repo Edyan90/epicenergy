@@ -1,8 +1,10 @@
 package Epicode.epicenergy.services;
 
 import Epicode.epicenergy.RecordsDTO.FatturaDTO;
+import Epicode.epicenergy.RecordsDTO.StatoFatturaDTO;
 import Epicode.epicenergy.entities.Cliente;
 import Epicode.epicenergy.entities.Fattura;
+import Epicode.epicenergy.entities.StatoFattura;
 import Epicode.epicenergy.enums.StatoFatturaEnum;
 import Epicode.epicenergy.repositories.ClienteRepository;
 import Epicode.epicenergy.repositories.FatturaRepository;
@@ -45,6 +47,15 @@ public class FatturaService {
         nuovaFattura.setCliente(cliente);
 
         return fatturaRepository.save(nuovaFattura);
+    }
+
+    public StatoFattura saveStatoFattura(StatoFatturaDTO statoFatturaDTO) {
+        StatoFattura nuovoStatoFattura = new StatoFattura();
+        nuovoStatoFattura.setStato(statoFatturaDTO.stato());
+        nuovoStatoFattura.setId(statoFatturaDTO.idFattura());
+
+        return statoFatturaRepository.save(nuovoStatoFattura);
+
     }
 
 
