@@ -12,12 +12,15 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -33,9 +36,78 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
 
-    public Page<Cliente> getAllClients(Specification<Cliente> spec, Pageable pageable) {
-        return clienteRepository.findAll(spec, pageable);
+    public Page<Cliente> getAllClients(String nome,
+                                       Double fatturatoMin,
+                                       Double fatturatoMax,
+                                       LocalDate dataInserimentoMin,
+                                       LocalDate dataInserimentoMax,
+                                       LocalDate dataUltimoContattoMin,
+                                       LocalDate dataUltimoContattoMax,
+                                       String provinciaSedeLegale,
+                                       String sortBy,
+                                       String direction,
+                                       Pageable pageable) {
+
+        Specification<Cliente> spec = Specification.where(null);
+
+        if (nome != null && !nome.isEmpty()) {
+            System.out.println("Filtrando per nome: " + nome);
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("ragioneSociale"), "%" + nome + "%"));
+        }
+
+        if (fatturatoMin != null) {
+            System.out.println("Filtrando per fatturatoMin: " + fatturatoMin);
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.greaterThanOrEqualTo(root.get("fatturatoAnnuale"), fatturatoMin));
+        }
+
+        if (fatturatoMax != null) {
+            System.out.println("Filtrando per fatturatoMax: " + fatturatoMax);
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.lessThanOrEqualTo(root.get("fatturatoAnnuale"), fatturatoMax));
+        }
+
+        if (dataInserimentoMin != null) {
+            System.out.println("Filtrando per dataInserimentoMin: " + dataInserimentoMin);
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.greaterThanOrEqualTo(root.get("dataInserimento"), dataInserimentoMin));
+        }
+
+        if (dataInserimentoMax != null) {
+            System.out.println("Filtrando per dataInserimentoMax: " + dataInserimentoMax);
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.lessThanOrEqualTo(root.get("dataInserimento"), dataInserimentoMax));
+        }
+
+        if (dataUltimoContattoMin != null) {
+            System.out.println("Filtrando per dataUltimoContattoMin: " + dataUltimoContattoMin);
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.greaterThanOrEqualTo(root.get("dataUltimoContatto"), dataUltimoContattoMin));
+        }
+
+        if (dataUltimoContattoMax != null) {
+            System.out.println("Filtrando per dataUltimoContattoMax: " + dataUltimoContattoMax);
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.lessThanOrEqualTo(root.get("dataUltimoContatto"), dataUltimoContattoMax));
+        }
+
+        if (provinciaSedeLegale != null && !provinciaSedeLegale.isEmpty()) {
+            System.out.println("Filtrando per provinciaSedeLegale: " + provinciaSedeLegale);
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("provinciaSedeLegale"), provinciaSedeLegale));
+        }
+
+        Sort.Direction sortDirection = (direction != null && direction.equalsIgnoreCase("desc")) ?
+                Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sort = Sort.by(sortDirection, sortBy != null ? sortBy : "ragioneSociale");
+
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+
+
+        return clienteRepository.findAll(spec, sortedPageable);
     }
+
 
     public Cliente createClient(ClienteDTO newClienteDTO) {
         Cliente cliente = new Cliente();
