@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestione Clienti</title>
+    <link
+      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">Gestione Clienti</h1>
+
+      <div class="card mt-4">
+        <div class="card-header">
+          <h2>Aggiungi Cliente</h2>
+        </div>
+        <div class="card-body">
+          <form id="clienteForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="ragioneSociale">Ragione Sociale</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="ragioneSociale"
+                  placeholder="Inserisci Ragione Sociale"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="partitaIva">Partita IVA</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="partitaIva"
+                  placeholder="Inserisci Partita IVA"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Inserisci Email"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="telefono">Telefono</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="telefono"
+                  placeholder="Inserisci Telefono"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nomeContatto">Nome Contatto</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nomeContatto"
+                  placeholder="Inserisci Nome Contatto"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="cognomeContatto">Cognome Contatto</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cognomeContatto"
+                  placeholder="Inserisci Cognome Contatto"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="fatturatoAnnuale">Fatturato Annuale</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="fatturatoAnnuale"
+                  placeholder="Inserisci Fatturato Annuale"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="pec">PEC</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pec"
+                  placeholder="Inserisci PEC"
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Aggiungi Cliente
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card mt-5">
+        <div class="card-header">
+          <h2>Elenco Clienti</h2>
+
+          <form class="form-inline mt-3">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Cerca per nome"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Cerca
+            </button>
+          </form>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Ragione Sociale</th>
+                <th scope="col">Partita IVA</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Fatturato Annuale</th>
+                <th scope="col">PEC</th>
+                <th scope="col">Nome Contatto</th>
+                <th scope="col">Cognome Contatto</th>
+                <th scope="col">Azione</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rossi S.p.A.</td>
+                <td>12345678901</td>
+                <td>info@rossispa.it</td>
+                <td>+39 012 3456789</td>
+                <td>500,000 €</td>
+                <td>pec@rossispa.it</td>
+                <td>Mario</td>
+                <td>Rossi</td>
+                <td>
+                  <button class="btn btn-warning btn-sm">Modifica</button>
+                  <button class="btn btn-danger btn-sm">Elimina</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
