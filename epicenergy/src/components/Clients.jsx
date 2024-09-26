@@ -1,5 +1,4 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Clients = () => {
   return (
@@ -111,7 +110,10 @@ const Clients = () => {
               placeholder="Cerca per nome"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <button
+              className="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+            >
               Cerca
             </button>
           </form>
@@ -146,7 +148,6 @@ const Clients = () => {
                   <button className="btn btn-danger btn-sm">Elimina</button>
                 </td>
               </tr>
-              {/* Aggiungi ulteriori righe come necessario */}
             </tbody>
           </table>
         </div>

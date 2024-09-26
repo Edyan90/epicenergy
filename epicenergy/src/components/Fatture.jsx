@@ -1,5 +1,5 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Fatture = () => {
   return (
@@ -84,7 +84,10 @@ const Fatture = () => {
               placeholder="Cerca per numero fattura"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <button
+              className="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+            >
               Cerca
             </button>
           </form>
