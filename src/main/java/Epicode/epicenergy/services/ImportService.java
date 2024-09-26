@@ -30,7 +30,6 @@ public class ImportService {
             String nomeProvincia = record[1].trim();
             String regione = record[2].trim();
 
-            // Controlla se la provincia esiste già
             if (provinciaRepository.existsBySigla(sigla)) {
                 System.out.println("Provincia già presente: " + sigla);
                 continue;
@@ -55,7 +54,7 @@ public class ImportService {
 
             if (comuneRepository.existsByDenominazioneAndCodiceProvincia(record[3].trim(), record[0].trim())) {
                 System.out.println("Comune già presente: " + record[3].trim());
-                continue; // Salta se il comune esiste già
+                continue;
             }
             Comune comune = new Comune();
             comune.setCodiceProvincia(record[0].trim());
@@ -70,7 +69,7 @@ public class ImportService {
             comune.setDenominazione(record[2].trim());
 
 
-            Optional<Provincia> provinciaOpt = provinciaRepository.findBySigla(record[0].trim());
+            Optional<Provincia> provinciaOpt = provinciaRepository.findByProvincia(record[0].trim());
 
 
             if (provinciaOpt.isEmpty()) {
