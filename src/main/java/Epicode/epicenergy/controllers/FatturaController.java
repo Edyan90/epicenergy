@@ -50,8 +50,7 @@ public class FatturaController {
 
     @PostMapping
     public Fattura creaFattura(@RequestBody @Validated FatturaDTO fatturaDTO) {
-//        Cliente cliente = this.clienteService.trovaPerId(fatturaDTO.clienteId());
-//        Fattura nuovaFattura = new Fattura(fatturaDTO.data(), fatturaDTO.importo(), fatturaDTO.numeroFattura(), cliente);
+
         Fattura salvataFattura = fatturaService.saveFattura(fatturaDTO);
 
 
@@ -65,6 +64,16 @@ public class FatturaController {
         StatoFattura statoFatturaSalvato = fatturaService.saveStatoFattura(statoFatturaDTO);
 
         return statoFatturaSalvato;
+    }
+
+    @PutMapping("/{id}")
+    public StatoFattura aggiornaStatoFattura(@PathVariable UUID id, @RequestBody @Validated StatoFatturaDTO statoFatturaDTO) {
+        return fatturaService.findStatoFatturaByIdAndUpdate(id, statoFatturaDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminaStatoFattura(@PathVariable UUID id) {
+        this.fatturaService.findStatoFatturaByIdAndDelete(id);
     }
 
 

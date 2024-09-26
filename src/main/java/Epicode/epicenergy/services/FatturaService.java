@@ -6,6 +6,7 @@ import Epicode.epicenergy.entities.Cliente;
 import Epicode.epicenergy.entities.Fattura;
 import Epicode.epicenergy.entities.StatoFattura;
 import Epicode.epicenergy.enums.StatoFatturaEnum;
+import Epicode.epicenergy.exceptions.NotFoundException;
 import Epicode.epicenergy.repositories.ClienteRepository;
 import Epicode.epicenergy.repositories.FatturaRepository;
 import Epicode.epicenergy.repositories.StatoFatturaRepository;
@@ -32,14 +33,11 @@ public class FatturaService {
 
 
     public Fattura saveFattura(FatturaDTO fattura) {
-//        StatoFattura stato = statoFatturaRepository.findById(fatturaDTO.getId())
-//                .orElseThrow(() -> new RuntimeException("Stato della fattura non trovato: " + fatturaDTO.getNumeroFattura()));
 
         Fattura nuovaFattura = new Fattura();
         nuovaFattura.setData(fattura.data());
         nuovaFattura.setImporto(fattura.importo());
         nuovaFattura.setNumeroFattura(fattura.numeroFattura());
-
 
         Cliente cliente = clienteRepository.findById(fattura.clienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente non trovato: " + fattura.clienteId()));
@@ -56,6 +54,22 @@ public class FatturaService {
 
         return statoFatturaRepository.save(nuovoStatoFattura);
 
+    }
+
+    public StatoFattura findStatoFatturaById(UUID id) {
+        return statoFatturaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Fattura non trovata con id  " + id));
+    }
+
+    public StatoFattura findStatoFatturaByIdAndUpdate(UUID id, StatoFatturaDTO statoFatturaDTO) {
+        StatoFattura statoFattura = findStatoFatturaById(id);
+        statoFattura.setStato(statoFatturaDTO.stato());
+        return statoFatturaRepository.save(statoFattura);
+    }
+
+    public void findStatoFatturaByIdAndDelete(UUID id) {
+        StatoFattura statoFattura = findStatoFatturaById(id);
+        statoFatturaRepository.delete(statoFattura);
     }
 
 

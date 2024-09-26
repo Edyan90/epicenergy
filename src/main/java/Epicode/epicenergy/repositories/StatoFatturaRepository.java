@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface StatoFatturaRepository extends JpaRepository<StatoFattura, UUID> {
 
-    Optional<StatoFattura> findById(UUID id);
+    Optional<StatoFattura> findStatoFatturaById(UUID id);
 
 
 }
