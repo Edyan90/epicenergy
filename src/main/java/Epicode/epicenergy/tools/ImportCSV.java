@@ -11,10 +11,46 @@ import java.util.List;
 
 @Component
 public class ImportCSV {
+    private String normalizeProvince(String vecchiaDenominazione) {
+        switch (vecchiaDenominazione) {
+            case "Verbania":
+                return "Verbano-Cusio-Ossola";
+            case "Aosta":
+                return "Valle d'Aosta/Vallèee d'Aoste";
+            case "Monza-Brianza":
+                return "Monza e della Brianza";
+            case "Bolzano":
+                return "Bolzano/Bozen";
+            case "La-Spezia":
+                return "La Spezia";
+            case "Reggio-Emilia":
+                return "Reggio nell'Emilia";
+            case "Forli-Cesena":
+                return "Forlì-Cesena";
+            case "Pesaro-Urbino":
+                return "Pesaro e Urbino";
+            case "Ascoli-Piceno":
+                return "Ascoli Piceno";
+            case "Reggio-Calabria":
+                return "Reggio Calabria";
+            case "Vibo-Valentia":
+                return "Vibo Valentia";
+            case "Carbonia Iglesias", "Medio Campidano":
+                return "Sud Sardegna";
+            case "Olbia Tempio":
+                return "Sassari";
+            case "Ogliastra":
+                return "Nuoro";
+            default:
+                return vecchiaDenominazione;
+        }
+    }
+
     public List<String[]> importComuni() {
         String filePath = new File("src/main/resources/comuni-italiani.csv").getAbsolutePath();
         boolean isFirstLine = true;
         List<String[]> comuni = new ArrayList<>();
+        int counter = 1;
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -24,6 +60,13 @@ public class ImportCSV {
                     continue;
                 }
                 String[] columns = line.split(";");
+
+                for (int i = 0; i < columns.length; i++) {
+                    if (columns[i].equals("#RIF!")) {
+                        columns[i] = String.format("%03d", counter);
+                        counter++;
+                    }
+                }
                 comuni.add(columns);
             }
         } catch (IOException ex) {
@@ -37,7 +80,7 @@ public class ImportCSV {
         String filePath = new File("src/main/resources/province-italiane.csv").getAbsolutePath();
         boolean isFirstLine = true;
         List<String[]> provincie = new ArrayList<>();
-
+        int counter = 1;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -46,6 +89,13 @@ public class ImportCSV {
                     continue;
                 }
                 String[] columns = line.split(";");
+                
+                for (int i = 0; i < columns.length; i++) {
+                    if (columns[i].equals("#RIF!")) {
+                        columns[i] = String.format("%03d", counter);
+                        counter++;
+                    }
+                }
                 provincie.add(columns);
             }
         } catch (IOException ex) {
@@ -54,4 +104,6 @@ public class ImportCSV {
 
         return provincie;
     }
+
+
 }
