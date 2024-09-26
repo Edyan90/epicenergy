@@ -5,16 +5,13 @@ import Epicode.epicenergy.payloads.ClienteDTO;
 import Epicode.epicenergy.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,19 +21,19 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @GetMapping
-    public Page<Cliente> trovaTuttiClienti(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(required = false) Double fatturatoMin,
-            @RequestParam(required = false) Double fatturatoMax,
-            @RequestParam(required = false) LocalDate dataInserimento,
-            @RequestParam(required = false) LocalDate dataUltimoContatto,
-            @RequestParam(required = false) String parteNome) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return clienteService.findWithFilters(fatturatoMin, fatturatoMax, dataInserimento, dataUltimoContatto, parteNome, pageable);
-    }
+//    @GetMapping
+//    public Page<Cliente> trovaTuttiClienti(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int size,
+//            @RequestParam(defaultValue = "id") String sortBy,
+//            @RequestParam(required = false) Double fatturatoMin,
+//            @RequestParam(required = false) Double fatturatoMax,
+//            @RequestParam(required = false) LocalDate dataInserimento,
+//            @RequestParam(required = false) LocalDate dataUltimoContatto,
+//            @RequestParam(required = false) String parteNome) {
+//        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+//        return clienteService.findWithFilters(fatturatoMin, fatturatoMax, dataInserimento, dataUltimoContatto, parteNome, pageable);
+//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -69,5 +66,55 @@ public class ClienteController {
     public Cliente caricaLogoAziendale(@PathVariable UUID clienteId, @RequestParam("logo") MultipartFile file) throws IOException, IOException {
         return clienteService.uploadLogoAziendale(clienteId, file);
     }
+
+    //
+    @GetMapping("/ordina/nome")
+    public List<Cliente> ordinaPerNome() {
+        return clienteService.ordinaPerNome();
+    }
+
+    @GetMapping("/ordina/fatturato")
+    public List<Cliente> ordinaPerFatturato() {
+        return clienteService.ordinaPerFatturato();
+    }
+
+    @GetMapping("/ordina/dataInserimento")
+    public List<Cliente> ordinaPerDataInserimento() {
+        return clienteService.ordinaPerDataInserimento();
+    }
+
+    @GetMapping("/ordina/dataUltimoContatto")
+    public List<Cliente> ordinaPerDataUltimoContatto() {
+        return clienteService.ordinaPerDataUltimoContatto();
+    }
+
+    //filtro
+    @GetMapping("/filtraFatturato")
+    // clienti/filtraFatturato?fatturatoMinimo= {$tot minimo fatturato da filtrare} &fatturatoMassimo= {$tot massimo fatturato da filtrare}
+    public List<Cliente> filtroFatturatoAnnuale(@RequestParam Double fatturatoMinimo, @RequestParam Double fatturatoMassimo) {
+        return clienteService.filtroFatturatoAnnuale(fatturatoMinimo, fatturatoMassimo);
+    }
+
+    @GetMapping("/filtraDataInserimento")
+    // clienti/filtraDataInserimento?primaData= {prima data da filtrare} &secondaData= {seconda data da filtrare}
+    public List<Cliente> filtroDataInserimento(@RequestParam LocalDate primaData, @RequestParam LocalDate secondaData) {
+        return clienteService.filtroDataInserimento(primaData, secondaData);
+    }
+
+
+    @GetMapping("/filtraUltimoContatto")
+    // clienti/filtraUltimoContatto?primaData= {prima data da filtrare} &secondaData= {seconda data da filtrare}
+    public List<Cliente> filtroDataUltimoContatto(@RequestParam LocalDate primaData, @RequestParam LocalDate secondaData) {
+        return clienteService.filtroDataUltimoContatto(primaData, secondaData);
+    }
+
+
+    @GetMapping("/filtraNome")
+    // clienti/filtraNome?parteNome=parteDelNome
+    public List<Cliente> filtroNome(@RequestParam String parteDelNome) {
+        return clienteService.filtroNome(parteDelNome);
+    }
+
+
 }
 

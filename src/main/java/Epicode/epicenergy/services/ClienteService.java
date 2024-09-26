@@ -8,13 +8,12 @@ import Epicode.epicenergy.repositories.ClienteRepository;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,10 +25,10 @@ public class ClienteService {
     @Autowired
     private Cloudinary cloudinaryUploader;
 
-    public Page<Cliente> findWithFilters(Double fatturatoMin, Double fatturatoMax, LocalDate dataInserimento, LocalDate dataUltimoContatto, String parteNome, Pageable pageable) {
-
-        return clienteRepository.findWithFilters(fatturatoMin, fatturatoMax, dataInserimento, dataUltimoContatto, parteNome, pageable);
-    }
+//    public Page<Cliente> findWithFilters(Double fatturatoMin, Double fatturatoMax, LocalDate dataInserimento, LocalDate dataUltimoContatto, String parteNome, Pageable pageable) {
+//
+//        return clienteRepository.findWithFilters(fatturatoMin, fatturatoMax, dataInserimento, dataUltimoContatto, parteNome, pageable);
+//    }
 
     public Cliente salva(Cliente cliente) {
         return clienteRepository.save(cliente);
@@ -95,5 +94,40 @@ public class ClienteService {
         cliente.setLogoAziendale(url);
 
         return clienteRepository.save(cliente);
+    }
+
+    //
+    public List<Cliente> ordinaPerNome() {
+        return clienteRepository.ordinaPerNome();
+    }
+
+    public List<Cliente> ordinaPerFatturato() {
+        return clienteRepository.ordinaPerFatturato();
+
+    }
+
+    public List<Cliente> ordinaPerDataInserimento() {
+        return clienteRepository.ordinaPerDataInserimento();
+    }
+
+    public List<Cliente> ordinaPerDataUltimoContatto() {
+        return clienteRepository.ordinaPerDataUltimoContatto();
+    }
+
+    //filtri
+    public List<Cliente> filtroFatturatoAnnuale(Double fatturatoMinimo, Double fatturatoMassimo) {
+        return clienteRepository.filtroFatturatoAnnuale(fatturatoMinimo, fatturatoMassimo);
+    }
+
+    public List<Cliente> filtroDataInserimento(LocalDate primaData, LocalDate secondaData) {
+        return clienteRepository.filtroDataInserimento(primaData, secondaData);
+    }
+
+    public List<Cliente> filtroDataUltimoContatto(LocalDate primaData, LocalDate secondaData) {
+        return clienteRepository.filtroDataUltimoContatto(primaData, secondaData);
+    }
+
+    public List<Cliente> filtroNome(String parteDelNome) {
+        return clienteRepository.filtroNome(parteDelNome);
     }
 }
