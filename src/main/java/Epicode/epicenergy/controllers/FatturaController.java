@@ -52,7 +52,7 @@ public class FatturaController {
     }
 
 
-    @GetMapping("/cliente/{clienteId}")
+    @GetMapping("/clienti/{clienteId}")
     public ResponseEntity<List<FatturaDTO>> getFattureByCliente(@PathVariable UUID clienteId) {
         List<Fattura> fatture = fatturaService.getFattureByClienteId(clienteId);
         List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());

@@ -42,22 +42,17 @@ public class UtenteService {
     private PasswordEncoder bcrypt;
 
     public Utente saveUtente(NewUtenteDTO body) {
-
         this.utenteRepository.findByMail(body.mail()).ifPresent(
-
                 user -> {
                     throw new BadRequestEx("La mail " + body.username() + " e' gia' in uso!");
                 }
         );
-
-
         Utente newUtente = new Utente(body.username(), body.mail(), bcrypt.encode(body.password()), body.nome(), body.cognome());
 
-        Set<Ruolo> ruoli = Arrays.stream(body.ruoli().split(","))
+        Set<Ruolo> ruoli = Arrays.stream(body.ruolo().split(","))
                 .map(String::trim)
                 .map(RuoloEnum::valueOf)
                 .map(ruoloEnum -> {
-
                     return ruoloRepository.findByRuoloE(ruoloEnum).orElseGet(() -> {
                         Ruolo nuovoRuolo = new Ruolo(ruoloEnum);
                         return ruoloRepository.save(nuovoRuolo);
@@ -65,14 +60,11 @@ public class UtenteService {
                 })
                 .collect(Collectors.toSet());
         newUtente.setRuoli(ruoli);
-
         Utente savedUser = this.utenteRepository.save(newUtente);
-
 
         System.out.println("L'utente " + savedUser + " e' stato salvato con successo!");
 
         return savedUser;
-
     }
 
     public Page<Utente> findAll(int page, int size, String sortBy) {
