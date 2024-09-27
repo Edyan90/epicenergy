@@ -2,11 +2,11 @@ package Epicode.epicenergy.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import Epicode.epicenergy.enums.TipoCliente;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,8 +65,9 @@ public class Cliente {
     @Column(name = "logo_aziendale")
     private String logoAziendale;
 
-    @Column(name = "tipo_cliente")
-    private String tipoCliente;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_cliente", nullable = false)
+    private TipoCliente tipoCliente;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
@@ -75,6 +76,13 @@ public class Cliente {
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Fattura> fatture = new ArrayList<>();
+    
+    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // @JoinColumn(name = "cliente_id")
+    // private List<Indirizzo> indirizzi;
+
+    // @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // private List<Fattura> fatture;
 
 
 }

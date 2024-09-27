@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/comuni")
 public class ComuneController {
@@ -36,12 +38,12 @@ public class ComuneController {
     }
 
     @GetMapping("/{comuneId}")
-    public Comune trovaComunePerId(@PathVariable Long comuneId) {
+    public Comune trovaComunePerId(@PathVariable UUID comuneId) {
         return comuneService.trovaPerId(comuneId);
     }
 
     @PutMapping("/{comuneId}")
-    public Comune aggiornaComune(@PathVariable Long comuneId, @Valid @RequestBody ComuneDTO comuneDTO) {
+    public Comune aggiornaComune(@PathVariable UUID comuneId, @Valid @RequestBody ComuneDTO comuneDTO) {
         Comune comuneEsistente = comuneService.trovaPerId(comuneId);
         comuneService.aggiornaComuneDaDTO(comuneEsistente, comuneDTO);
         return comuneService.salva(comuneEsistente);
@@ -49,7 +51,7 @@ public class ComuneController {
 
     @DeleteMapping("/{comuneId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void cancellaComune(@PathVariable Long comuneId) {
+    public void cancellaComune(@PathVariable UUID comuneId) {
         comuneService.cancella(comuneId);
     }
 }

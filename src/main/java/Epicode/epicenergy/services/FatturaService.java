@@ -113,4 +113,9 @@ public class FatturaService {
     public List<Fattura> filtroDataFattura(LocalDate primaData, LocalDate secondaData) {
         return fatturaRepository.filtroDataFattura(primaData, secondaData);
     }
+
+    public List<Fattura> getFatturePerAnno(int anno) {
+        return fatturaRepository.findByAnno(anno);
+    }
+    
 }

@@ -43,4 +43,13 @@ public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
     @Query("SELECT f FROM Fattura f WHERE f.data BETWEEN :primaData AND :secondaData")
     List<Fattura> filtroDataFattura(@Param("primaData") LocalDate primaData, @Param("secondaData") LocalDate secondaData);
 
+    // Filtro per importo tra min e max
+    List<Fattura> findByImportoBetween(BigDecimal minImporto, BigDecimal maxImporto);
+
+    // Filtro combinato per cliente, stato, range di importi e date
+    List<Fattura> findByClienteIdAndStatoAndImportoBetweenAndDataBetween(UUID clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate);
+
+    @Query("SELECT f FROM Fattura f WHERE YEAR(f.data) = :anno")
+    List<Fattura> findByAnno(@Param("anno") int anno);
+    
 }

@@ -3,9 +3,11 @@ package Epicode.epicenergy.controllers;
 import Epicode.epicenergy.entities.Cliente;
 import Epicode.epicenergy.payloads.ClienteDTO;
 import Epicode.epicenergy.services.ClienteService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,11 +37,17 @@ public class ClienteController {
 //        return clienteService.findWithFilters(fatturatoMin, fatturatoMax, dataInserimento, dataUltimoContatto, parteNome, pageable);
 //    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> getClientById(@PathVariable UUID id) {
+        Cliente cliente = clienteService.getClientById(id);
+        return ResponseEntity.ok(cliente);
+    }
+
+
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Cliente creaCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
-        Cliente cliente = clienteService.mappaDTOaCliente(clienteDTO);
-        return clienteService.salva(cliente);
+    public ResponseEntity<Cliente> createClient(@RequestBody ClienteDTO newClienteDTO) {
+        Cliente cliente = clienteService.createClient(newClienteDTO);
+        return new ResponseEntity<>(cliente, HttpStatus.CREATED);
     }
 
     @GetMapping("/{clienteId}")

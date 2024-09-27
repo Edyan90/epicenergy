@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class ComuneService {
 
@@ -23,12 +25,12 @@ public class ComuneService {
         return comuneRepository.save(comune);
     }
 
-    public Comune trovaPerId(Long comuneId) {
+    public Comune trovaPerId(UUID comuneId) {
         return comuneRepository.findById(comuneId)
                 .orElseThrow(() -> new NotFoundEx(comuneId));
     }
 
-    public void cancella(Long comuneId) {
+    public void cancella(UUID comuneId) {
         Comune comune = trovaPerId(comuneId);
         comuneRepository.delete(comune);
     }

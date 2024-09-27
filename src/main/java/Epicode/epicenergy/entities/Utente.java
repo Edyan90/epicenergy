@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Setter
 @ToString
 @NoArgsConstructor
-@JsonIgnoreProperties
+@JsonIgnoreProperties({"utenti"})
 public class Utente implements UserDetails {
 
     @Id

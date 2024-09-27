@@ -136,4 +136,43 @@ public class FatturaController {
     }
 
 
+    @GetMapping("/stato/{stato}")
+    public ResponseEntity<List<FatturaDTO>> getFattureByStato(@PathVariable StatoFattura stato) {
+        List<Fattura> fatture = fatturaService.getFattureByStato(stato);
+        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(fattureDTO);
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<List<FatturaDTO>> getFattureByDateRange(
+            @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+        List<Fattura> fatture = fatturaService.getFattureByDateRange(startDate, endDate);
+        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(fattureDTO);
+    }
+
+
+    @GetMapping("/importo")
+    public ResponseEntity<List<FatturaDTO>> getFattureByImportoRange(
+            @RequestParam BigDecimal minImporto, @RequestParam BigDecimal maxImporto) {
+        List<Fattura> fatture = fatturaService.getFattureByImportoRange(minImporto, maxImporto);
+        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(fattureDTO);
+    }
+
+
+    @GetMapping("/filtrate")
+    public ResponseEntity<List<FatturaDTO>> getFattureFiltrate(
+            @RequestParam UUID clienteId, @RequestParam StatoFattura stato,
+            @RequestParam BigDecimal minImporto, @RequestParam BigDecimal maxImporto,
+            @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+        List<Fattura> fatture = fatturaService.getFattureFiltrate(clienteId, stato, minImporto, maxImporto, startDate, endDate);
+        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(fattureDTO);
+    }
+
+    @GetMapping("/anno/{anno}")
+    public List<Fattura> getFattureByAnno(@PathVariable int anno) {
+        return fatturaService.getFatturePerAnno(anno);
+    }
 }
