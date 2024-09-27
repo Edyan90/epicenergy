@@ -51,4 +51,9 @@ public class FatturaService {
     public List<Fattura> getFattureFiltrate(UUID clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate) {
         return fatturaRepository.findByClienteIdAndStatoAndImportoBetweenAndDataBetween(clienteId, stato, minImporto, maxImporto, startDate, endDate);
     }
+
+    public List<Fattura> getFatturePerAnno(int anno) {
+        return fatturaRepository.findByAnno(anno);
+    }
+    
 }
