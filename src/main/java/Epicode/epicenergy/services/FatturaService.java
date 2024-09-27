@@ -14,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -75,29 +76,28 @@ public class FatturaService {
 //    public List<Fattura> getFattureByClienteId(UUID clienteId) {
 //        return fatturaRepository.findByClienteId(clienteId);
 //    }
-//
-//
-//    public List<Fattura> getFattureByStato(StatoFatturaEnum stato) {
-//        return fatturaRepository.findByStato(stato);
-//    }
-//
-//
-//    public List<Fattura> getFattureByDateRange(LocalDate startDate, LocalDate endDate) {
-//        return fatturaRepository.findByDataBetween(startDate, endDate);
-//    }
-//
-//
-//    public List<Fattura> getFattureByAnno(Integer anno) {
-//        return fatturaRepository.findByAnno(anno);
-//    }
-//
-//
-//    public List<Fattura> getFattureByImportoRange(BigDecimal minImporto, BigDecimal maxImporto) {
-//        return fatturaRepository.findByImportoBetween(minImporto, maxImporto);
-//    }
-//
-//
-//    public List<Fattura> getFattureFiltrate(UUID clienteId, StatoFatturaEnum stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate) {
+
+
+    public List<Fattura> getFattureByStato(StatoFatturaEnum stato) {
+        return fatturaRepository.findByStato(stato);
+    }
+
+
+    public List<Fattura> getFattureByDateRange(LocalDate startDate, LocalDate endDate) {
+        return fatturaRepository.findByDataBetween(startDate, endDate);
+    }
+
+
+    public List<Fattura> getFattureByAnno(Integer anno) {
+        return fatturaRepository.findByAnno(anno);
+    }
+
+    public List<Fattura> getFattureByImportoRange(BigDecimal minImporto, BigDecimal maxImporto) {
+        return fatturaRepository.findByImportoBetween(minImporto, maxImporto);
+    }
+
+
+//    public List<Fattura> getFattureFiltrate(UUID clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate) {
 //        return fatturaRepository.findByClienteIdAndStatoAndImportoBetweenAndDataBetween(clienteId, stato, minImporto, maxImporto, startDate, endDate);
 //    }
 
@@ -117,5 +117,5 @@ public class FatturaService {
     public List<Fattura> getFatturePerAnno(int anno) {
         return fatturaRepository.findByAnno(anno);
     }
-    
+
 }

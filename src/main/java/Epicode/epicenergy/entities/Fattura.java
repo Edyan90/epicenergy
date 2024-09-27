@@ -24,10 +24,10 @@ public class Fattura {
     private LocalDate data;
     private BigDecimal importo;
     private Integer numeroFattura;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "stato_fatture")
-//    private StatoFattura stato;
+
+    @ManyToOne
+    @JoinColumn(name = "stato_fatture")
+    private StatoFattura stato;
 
 
     @ManyToOne

@@ -8,12 +8,15 @@ import Epicode.epicenergy.enums.StatoFatturaEnum;
 import Epicode.epicenergy.services.ClienteService;
 import Epicode.epicenergy.services.FatturaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/fatture")
@@ -136,22 +139,22 @@ public class FatturaController {
     }
 
 
-    @GetMapping("/stato/{stato}")
-    public ResponseEntity<List<FatturaDTO>> getFattureByStato(@PathVariable StatoFattura stato) {
-        List<Fattura> fatture = fatturaService.getFattureByStato(stato);
-        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
-        return ResponseEntity.ok(fattureDTO);
-    }
-
-    @GetMapping("/data")
-    public ResponseEntity<List<FatturaDTO>> getFattureByDateRange(
-            @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
-        List<Fattura> fatture = fatturaService.getFattureByDateRange(startDate, endDate);
-        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
-        return ResponseEntity.ok(fattureDTO);
-    }
-
-
+    //    @GetMapping("/stato/{stato}")
+//    public ResponseEntity<List<FatturaDTO>> getFattureByStato(@PathVariable StatoFattura stato) {
+//        List<Fattura> fatture = fatturaService.getFattureByStato(stato);
+//        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
+//        return ResponseEntity.ok(fattureDTO);
+//    }
+//
+//    @GetMapping("/data")
+//    public ResponseEntity<List<FatturaDTO>> getFattureByDateRange(
+//            @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+//        List<Fattura> fatture = fatturaService.getFattureByDateRange(startDate, endDate);
+//        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
+//        return ResponseEntity.ok(fattureDTO);
+//    }
+//
+//
     @GetMapping("/importo")
     public ResponseEntity<List<FatturaDTO>> getFattureByImportoRange(
             @RequestParam BigDecimal minImporto, @RequestParam BigDecimal maxImporto) {
@@ -159,17 +162,17 @@ public class FatturaController {
         List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
         return ResponseEntity.ok(fattureDTO);
     }
-
-
-    @GetMapping("/filtrate")
-    public ResponseEntity<List<FatturaDTO>> getFattureFiltrate(
-            @RequestParam UUID clienteId, @RequestParam StatoFattura stato,
-            @RequestParam BigDecimal minImporto, @RequestParam BigDecimal maxImporto,
-            @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
-        List<Fattura> fatture = fatturaService.getFattureFiltrate(clienteId, stato, minImporto, maxImporto, startDate, endDate);
-        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
-        return ResponseEntity.ok(fattureDTO);
-    }
+//
+//
+//    @GetMapping("/filtrate")
+//    public ResponseEntity<List<FatturaDTO>> getFattureFiltrate(
+//            @RequestParam UUID clienteId, @RequestParam StatoFattura stato,
+//            @RequestParam BigDecimal minImporto, @RequestParam BigDecimal maxImporto,
+//            @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+//        List<Fattura> fatture = fatturaService.getFattureFiltrate(clienteId, stato, minImporto, maxImporto, startDate, endDate);
+//        List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
+//        return ResponseEntity.ok(fattureDTO);
+//    }
 
     @GetMapping("/anno/{anno}")
     public List<Fattura> getFattureByAnno(@PathVariable int anno) {

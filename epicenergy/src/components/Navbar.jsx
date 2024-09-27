@@ -31,9 +31,9 @@ const Navbar = () => {
                 Clienti
               </Link>
             </li>
-           
+
             <li className="nav-item">
-              <Link className="nav-link" to="/register">
+              <Link className="nav-link" to="/auth/register">
                 Registrazione
               </Link>
             </li>
