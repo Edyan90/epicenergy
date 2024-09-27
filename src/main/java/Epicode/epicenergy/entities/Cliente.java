@@ -1,7 +1,6 @@
 package Epicode.epicenergy.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import Epicode.epicenergy.enums.TipoCliente;
 import jakarta.persistence.*;
 import lombok.*;
@@ -69,20 +68,20 @@ public class Cliente {
     @Column(name = "tipo_cliente", nullable = false)
     private TipoCliente tipoCliente;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
-    private List<Indirizzo> indirizzi = new ArrayList<>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "cliente")
+//    private List<Indirizzo> indirizzi = new ArrayList<>();
+//
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "cliente")
+//    private List<Fattura> fatture = new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
-    private List<Fattura> fatture = new ArrayList<>();
-    
-    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // @JoinColumn(name = "cliente_id")
-    // private List<Indirizzo> indirizzi;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
+    private List<Indirizzo> indirizzi;
 
-    // @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // private List<Fattura> fatture;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Fattura> fatture;
 
 
 }

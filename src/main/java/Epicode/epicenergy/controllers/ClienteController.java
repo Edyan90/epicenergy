@@ -4,8 +4,6 @@ import Epicode.epicenergy.entities.Cliente;
 import Epicode.epicenergy.payloads.ClienteDTO;
 import Epicode.epicenergy.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +44,7 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<Cliente> createClient(@RequestBody ClienteDTO newClienteDTO) {
-        Cliente cliente = clienteService.createClient(newClienteDTO);
+        Cliente cliente = clienteService.salva(newClienteDTO);
         return new ResponseEntity<>(cliente, HttpStatus.CREATED);
     }
 
@@ -55,12 +53,12 @@ public class ClienteController {
         return clienteService.trovaPerId(clienteId);
     }
 
-    @PutMapping("/{clienteId}")
-    public Cliente aggiornaCliente(@PathVariable UUID clienteId, @Valid @RequestBody ClienteDTO clienteDTO) {
-        Cliente clienteEsistente = clienteService.trovaPerId(clienteId);
-        clienteService.aggiornaClienteDaDTO(clienteEsistente, clienteDTO);
-        return clienteService.salva(clienteEsistente);
-    }
+//    @PutMapping("/{clienteId}")
+//    public Cliente aggiornaCliente(@PathVariable UUID clienteId, @Valid @RequestBody ClienteDTO clienteDTO) {
+//        Cliente clienteEsistente = clienteService.trovaPerId(clienteId);
+//        clienteService.aggiornaClienteDaDTO(clienteEsistente, clienteDTO);
+//        return clienteService.salva(clienteEsistente);
+//    }
 
     @DeleteMapping("/{clienteId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

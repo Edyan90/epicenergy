@@ -11,18 +11,12 @@ import Epicode.epicenergy.repositories.ClienteRepository;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -42,7 +36,7 @@ public class ClienteService {
 //    }
 
 
-    public Cliente createClient(ClienteDTO newClienteDTO) {
+    public Cliente salva(ClienteDTO newClienteDTO) {
         Cliente cliente = new Cliente();
         cliente.setRagioneSociale(newClienteDTO.ragioneSociale());
         cliente.setPartitaIva(newClienteDTO.partitaIva());
@@ -51,16 +45,16 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    // public Cliente trovaPerId(UUID clienteId) {
-    //     return clienteRepository.findById(clienteId)
-    //             .orElseThrow(() -> new NotFoundEx(clienteId));
-    // }
+//     public Cliente trovaPerId(UUID clienteId) {
+//         return clienteRepository.findById(clienteId)
+//                 .orElseThrow(() -> new NotFoundEx(clienteId));
+//     }
 
 
-    // public void cancella(UUID clienteId) {
-    //     Cliente cliente = trovaPerId(clienteId);
-    //     clienteRepository.delete(cliente);
-    // }
+    public void cancella(UUID clienteId) {
+        Cliente cliente = trovaPerId(clienteId);
+        clienteRepository.delete(cliente);
+    }
 
     // public Cliente mappaDTOaCliente(ClienteDTO dto) {
     //     Cliente cliente = new Cliente();
@@ -79,20 +73,20 @@ public class ClienteService {
     //     return cliente;
     // }
 
-    // public void aggiornaClienteDaDTO(Cliente cliente, ClienteDTO dto) {
-    //     cliente.setRagioneSociale(dto.ragioneSociale());
-    //     cliente.setPartitaIva(dto.partitaIva());
-    //     cliente.setEmail(dto.email());
-    //     cliente.setTelefono(dto.telefono());
-    //     cliente.setPec(dto.pec());
-    //     cliente.setFatturatoAnnuale(dto.fatturatoAnnuale());
-    //     cliente.setDataInserimento(dto.dataInserimento());
-    //     cliente.setDataUltimoContatto(dto.dataUltimoContatto());
-    //     cliente.setNomeContatto(dto.nomeContatto());
-    //     cliente.setCognomeContatto(dto.cognomeContatto());
-    //     cliente.setTelefonoContatto(dto.telefonoContatto());
-
-    // }
+//    public void aggiornaClienteDaDTO(Cliente cliente, ClienteDTO dto) {
+//        cliente.setRagioneSociale(dto.ragioneSociale());
+//        cliente.setPartitaIva(dto.partitaIva());
+//        cliente.setEmail(dto.email());
+//        cliente.setPartitaIva(dto.partitaIva());
+//        cliente.setRagioneSociale(dto.ragioneSociale());
+//        cliente.setIndirizzi(dto.indirizzi());
+//        cliente.setDataUltimoContatto(dto.dataUltimoContatto());
+//        cliente.setNomeContatto(dto.nomeContatto());
+//        cliente.setCognomeContatto(dto.cognomeContatto());
+//        cliente.setTelefonoContatto(dto.telefonoContatto());
+//        this.clienteRepository.save(cliente);
+//
+//    }
 
 
     public Cliente updateClient(UUID id, ClienteDTO clienteDTO) {
@@ -183,8 +177,11 @@ public class ClienteService {
     public List<Cliente> filtroNome(String parteDelNome) {
         return clienteRepository.filtroNome(parteDelNome);
 
-    private Cliente trovaPerId(UUID clienteId) {
-        return clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new NotFoundException("Cliente non trovato con ID: " + clienteId));
     }
+
+    public Cliente trovaPerId(UUID id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Cliente non trovato con ID: " + id));
+    }
+
 }
