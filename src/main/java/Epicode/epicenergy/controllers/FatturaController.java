@@ -94,4 +94,9 @@ public class FatturaController {
         List<FatturaDTO> fattureDTO = fatture.stream().map(this::convertToDTO).collect(Collectors.toList());
         return ResponseEntity.ok(fattureDTO);
     }
+
+    @GetMapping("/anno/{anno}")
+    public List<Fattura> getFattureByAnno(@PathVariable int anno) {
+        return fatturaService.getFatturePerAnno(anno);
+    }
 }
