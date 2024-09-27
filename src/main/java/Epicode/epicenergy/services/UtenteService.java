@@ -49,7 +49,7 @@ public class UtenteService {
         );
         Utente newUtente = new Utente(body.username(), body.mail(), bcrypt.encode(body.password()), body.nome(), body.cognome());
 
-        Set<Ruolo> ruoli = Arrays.stream(body.ruolo().split(","))
+        Set<Ruolo> ruoli = Arrays.stream(body.ruoli().split(","))
                 .map(String::trim)
                 .map(RuoloEnum::valueOf)
                 .map(ruoloEnum -> {

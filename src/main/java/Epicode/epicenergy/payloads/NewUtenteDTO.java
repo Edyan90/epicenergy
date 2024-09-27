@@ -27,6 +27,6 @@ public record NewUtenteDTO(
         String cognome,
 
         @NotNull(message = "Il ruolo non può essere nullo e deve essere separati da una virgola se ci sono più ruoli")
-        String ruolo
+        String ruoli
 ) {
 }
