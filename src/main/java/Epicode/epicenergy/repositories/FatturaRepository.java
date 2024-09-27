@@ -4,6 +4,7 @@ import Epicode.epicenergy.entities.Fattura;
 import Epicode.epicenergy.enums.StatoFattura;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -32,4 +33,8 @@ public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
 
     // Filtro combinato per cliente, stato, range di importi e date
     List<Fattura> findByClienteIdAndStatoAndImportoBetweenAndDataBetween(UUID clienteId, StatoFattura stato, BigDecimal minImporto, BigDecimal maxImporto, LocalDate startDate, LocalDate endDate);
+
+    @Query("SELECT f FROM Fattura f WHERE YEAR(f.data) = :anno")
+    List<Fattura> findByAnno(@Param("anno") int anno);
+    
 }
