@@ -1,13 +1,13 @@
-import React from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Fatture = () => {
   return (
-    <div className="container mt-5">
+    <div  className="container mt-5 ">
       <h1 className="text-center">Gestione Fatture</h1>
 
-      {/* Form per aggiungere una nuova fattura */}
-      <div className="card mt-4">
+      
+      <div className="card mt-4 ">
         <div className="card-header">
           <h2>Aggiungi Fattura</h2>
         </div>
