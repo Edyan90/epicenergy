@@ -8,7 +8,7 @@ const Registrati = () => {
   const [password, setPassword] = useState("");
   const [nome, setNome] = useState("");
   const [cognome, setCognome] = useState("");
-  const [ruolo, setRuolo] = useState("");
+  const [ruoli, setRuoli] = useState("");
   /* const [avatar, setAvatar] = useState(null); */
 
   const handleSubmit = async (e) => {
@@ -20,7 +20,7 @@ const Registrati = () => {
       password,
       nome,
       cognome,
-      ruolo,
+      ruoli,
       /* avatar, */
     };
 
@@ -104,8 +104,8 @@ const Registrati = () => {
           <Form.Control
             type="text"
             placeholder="Inserisci ruolo"
-            value={ruolo}
-            onChange={(e) => setRuolo(e.target.value)}
+            value={ruoli}
+            onChange={(e) => setRuoli(e.target.value)}
           />
         </Form.Group>
 
