@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/fatture")
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class FatturaController {
 
     @Autowired
