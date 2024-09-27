@@ -10,11 +10,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+<<<<<<< Updated upstream
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+=======
+>>>>>>> Stashed changes
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +31,10 @@ public class Config {
         httpSecurity.csrf(http -> http.disable());
         httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").permitAll());
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         httpSecurity.cors(Customizer.withDefaults());
 
         return httpSecurity.build();
@@ -39,6 +46,7 @@ public class Config {
 
     }
 
+<<<<<<< Updated upstream
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -53,3 +61,6 @@ public class Config {
 
 
     
+=======
+}
+>>>>>>> Stashed changes

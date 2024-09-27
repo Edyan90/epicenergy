@@ -1,8 +1,13 @@
 package Epicode.epicenergy.services;
 
+<<<<<<< Updated upstream
 
 import Epicode.epicenergy.entities.Utente;
 import Epicode.epicenergy.exceptions.UnauthorizedEx;
+=======
+import Epicode.epicenergy.entites.Utente;
+import Epicode.epicenergy.exceptions.UnauthorizedException;
+>>>>>>> Stashed changes
 import Epicode.epicenergy.payloads.UtenteLoginDTO;
 import Epicode.epicenergy.security.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +34,11 @@ public class AuthService {
             return jwtTools.createToken(found);
         } else {
 
+<<<<<<< Updated upstream
             throw new UnauthorizedEx("Credenziali errate!");
+=======
+            throw new UnauthorizedException("Credenziali errate!");
+>>>>>>> Stashed changes
         }
 
     }
